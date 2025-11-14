@@ -18,7 +18,11 @@ export default function Editor() {
     <main>
       <h1>Editor</h1>
       <ProseKit editor={editor}>
-        <div ref={editor.mount} className="outline-solid p-4"></div>
+        <div
+          ref={editor.mount}
+          className="outline-solid p-4"
+          spellCheck={false}
+        ></div>
       </ProseKit>
     </main>
   )

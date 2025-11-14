@@ -63,6 +63,7 @@ function defineMultipleChoiceExerciseSpec() {
     name: 'multipleChoiceExercise',
     content: 'exerciseQuestion exerciseAnswers',
     group: 'block',
+    splittable: false,
     parseDOM: [{ tag: 'div.multiple-choice-exercise' }],
     toDOM() {
       return ['div', { class: 'multiple-choice-exercise' }, 0]
@@ -87,6 +88,7 @@ function defineExerciseAnswersSpec() {
     name: 'exerciseAnswers',
     content: 'exerciseAnswer{2,}',
     group: 'block',
+    splittable: false,
     parseDOM: [{ tag: 'div.exercise-answers' }],
     toDOM() {
       return ['div', { class: 'exercise-answers' }, 0]
@@ -99,6 +101,7 @@ function defineExerciseAnswerSpec() {
     name: 'exerciseAnswer',
     content: 'boolean inline*',
     group: 'block',
+    splittable: false,
     parseDOM: [{ tag: 'p.exercise-answer' }],
     toDOM() {
       return ['p', { class: 'exercise-answer' }, 0]

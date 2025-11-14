@@ -78,7 +78,7 @@ function defineExerciseQuestionSpec() {
 function defineExerciseAnswersSpec() {
   return defineNodeSpec({
     name: 'exerciseAnswers',
-    content: 'exerciseAnswer+',
+    content: 'exerciseAnswer{2,}',
     group: 'block',
     parseDOM: [{ tag: 'div.exercise-answers' }],
     toDOM() {

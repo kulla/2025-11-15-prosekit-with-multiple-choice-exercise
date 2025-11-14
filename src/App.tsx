@@ -4,7 +4,6 @@ import 'prosekit/basic/typography.css'
 import './App.css'
 
 import type { NodeView } from '@prosekit/pm/view'
-import stringify from 'json-stringify-pretty-compact'
 import { defineBasicExtension } from 'prosekit/basic'
 import {
   createEditor,
@@ -15,6 +14,7 @@ import {
 } from 'prosekit/core'
 import { ProseKit, useDocChange } from 'prosekit/react'
 import { useCallback, useMemo, useState } from 'react'
+import { stringify } from 'yaml'
 
 export default function Editor() {
   const editor = useMemo(() => {
@@ -59,7 +59,7 @@ export default function Editor() {
           spellCheck={false}
         ></div>
       </ProseKit>
-      <h1>JSON-Output of Editor</h1>
+      <h1>Editor-State</h1>
       <pre>{stringify(json)}</pre>
     </main>
   )

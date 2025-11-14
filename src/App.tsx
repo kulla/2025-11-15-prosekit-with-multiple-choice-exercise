@@ -3,8 +3,15 @@ import 'prosekit/basic/style.css'
 import 'prosekit/basic/typography.css'
 import './App.css'
 
+import type { NodeView } from '@prosekit/pm/view'
 import { defineBasicExtension } from 'prosekit/basic'
-import { createEditor, defineNodeSpec, insertNode, union } from 'prosekit/core'
+import {
+  createEditor,
+  defineNodeSpec,
+  defineNodeView,
+  insertNode,
+  union,
+} from 'prosekit/core'
 import { ProseKit } from 'prosekit/react'
 import { useCallback, useMemo } from 'react'
 
@@ -16,7 +23,7 @@ export default function Editor() {
       defineExerciseQuestionSpec(),
       defineExerciseAnswersSpec(),
       defineExerciseAnswerSpec(),
-      defineBooleanInlineSpec(),
+      defineBooleanSpec(),
     )
     return createEditor({ extension })
   }, [])
@@ -90,7 +97,7 @@ function defineExerciseAnswersSpec() {
 function defineExerciseAnswerSpec() {
   return defineNodeSpec({
     name: 'exerciseAnswer',
-    content: 'booleanInline inline*',
+    content: 'boolean inline*',
     group: 'block',
     parseDOM: [{ tag: 'p.exercise-answer' }],
     toDOM() {
@@ -99,16 +106,34 @@ function defineExerciseAnswerSpec() {
   })
 }
 
-function defineBooleanInlineSpec() {
-  return defineNodeSpec({
-    name: 'booleanInline',
-    inline: true,
-    group: 'inline',
-    atom: true,
-    selectable: true,
-    parseDOM: [{ tag: 'span.boolean-inline' }],
-    toDOM() {
-      return ['span', { class: 'boolean-inline' }, '☐']
-    },
-  })
+function defineBooleanSpec() {
+  return union(
+    defineNodeSpec({
+      name: 'boolean',
+      inline: true,
+      group: 'inline',
+      parseDOM: [{ tag: 'input[type="checkbox"]' }],
+      toDOM() {
+        return ['input', { type: 'checkbox' }]
+      },
+    }),
+    defineNodeView({
+      name: 'boolean',
+      constructor: () => new BooleanView(),
+    }),
+  )
+}
+
+class BooleanView implements NodeView {
+  public dom: HTMLInputElement
+
+  constructor() {
+    this.dom = document.createElement('input')
+    this.dom.contentEditable = 'false'
+    this.dom.type = 'checkbox'
+  }
+
+  stopEvent() {
+    return false
+  }
 }

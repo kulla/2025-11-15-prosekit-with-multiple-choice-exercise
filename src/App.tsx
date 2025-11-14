@@ -38,12 +38,7 @@ export default function Editor() {
     editor.exec(insertNode({ type: 'paragraph' }))
   }, [editor])
 
-  useDocChange(
-    () => {
-      setJson(editor.getDocJSON())
-    },
-    { editor },
-  )
+  useDocChange(() => setJson(editor.getDocJSON()), { editor })
 
   return (
     <main>

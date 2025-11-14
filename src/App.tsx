@@ -12,8 +12,8 @@ import {
   insertNode,
   union,
 } from 'prosekit/core'
-import { ProseKit } from 'prosekit/react'
-import { useCallback, useMemo } from 'react'
+import { ProseKit, useDocChange } from 'prosekit/react'
+import { useCallback, useMemo, useState } from 'react'
 
 export default function Editor() {
   const editor = useMemo(() => {
@@ -28,6 +28,8 @@ export default function Editor() {
     return createEditor({ extension })
   }, [])
 
+  const [json, setJson] = useState<unknown>(null)
+
   const handleAddMultipleChoiceExercise = useCallback(() => {
     editor.exec(insertNode({ type: 'multipleChoiceExercise' }))
   }, [editor])
@@ -35,6 +37,13 @@ export default function Editor() {
   const handleAddParagraph = useCallback(() => {
     editor.exec(insertNode({ type: 'paragraph' }))
   }, [editor])
+
+  useDocChange(
+    () => {
+      setJson(editor.getDocJSON())
+    },
+    { editor },
+  )
 
   return (
     <main>
@@ -50,10 +59,12 @@ export default function Editor() {
       <ProseKit editor={editor}>
         <div
           ref={editor.mount}
-          className="border-2 rounded-lg p-4"
+          className="border-2 rounded-lg p-4 mb-4"
           spellCheck={false}
         ></div>
       </ProseKit>
+      <h1>JSON-Output of Editor</h1>
+      <pre>{JSON.stringify(json, null, 2)}</pre>
     </main>
   )
 }

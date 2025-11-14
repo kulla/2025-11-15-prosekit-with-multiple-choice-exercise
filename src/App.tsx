@@ -4,6 +4,7 @@ import 'prosekit/basic/typography.css'
 import './App.css'
 
 import type { NodeView } from '@prosekit/pm/view'
+import stringify from 'json-stringify-pretty-compact'
 import { defineBasicExtension } from 'prosekit/basic'
 import {
   createEditor,
@@ -59,7 +60,7 @@ export default function Editor() {
         ></div>
       </ProseKit>
       <h1>JSON-Output of Editor</h1>
-      <pre>{JSON.stringify(json, null, 2)}</pre>
+      <pre>{stringify(json)}</pre>
     </main>
   )
 }

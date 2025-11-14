@@ -13,6 +13,10 @@ export default function Editor() {
     const extension = union(
       defineBasicExtension(),
       defineMultipleChoiceExerciseSpec(),
+      defineExerciseQuestionSpec(),
+      defineExerciseAnswersSpec(),
+      defineExerciseAnswerSpec(),
+      defineBooleanInlineSpec(),
     )
     return createEditor({ extension })
   }, [])
@@ -50,11 +54,61 @@ export default function Editor() {
 function defineMultipleChoiceExerciseSpec() {
   return defineNodeSpec({
     name: 'multipleChoiceExercise',
-    content: 'paragraph+',
+    content: 'exerciseQuestion exerciseAnswers',
     group: 'block',
     parseDOM: [{ tag: 'div.multiple-choice-exercise' }],
     toDOM() {
       return ['div', { class: 'multiple-choice-exercise' }, 0]
+    },
+  })
+}
+
+function defineExerciseQuestionSpec() {
+  return defineNodeSpec({
+    name: 'exerciseQuestion',
+    content: 'paragraph+',
+    group: 'block',
+    parseDOM: [{ tag: 'div.exercise-question' }],
+    toDOM() {
+      return ['div', { class: 'exercise-question' }, 0]
+    },
+  })
+}
+
+function defineExerciseAnswersSpec() {
+  return defineNodeSpec({
+    name: 'exerciseAnswers',
+    content: 'exerciseAnswer+',
+    group: 'block',
+    parseDOM: [{ tag: 'div.exercise-answers' }],
+    toDOM() {
+      return ['div', { class: 'exercise-answers' }, 0]
+    },
+  })
+}
+
+function defineExerciseAnswerSpec() {
+  return defineNodeSpec({
+    name: 'exerciseAnswer',
+    content: 'booleanInline inline+',
+    group: 'block',
+    parseDOM: [{ tag: 'div.exercise-answer' }],
+    toDOM() {
+      return ['div', { class: 'exercise-answer' }, 0]
+    },
+  })
+}
+
+function defineBooleanInlineSpec() {
+  return defineNodeSpec({
+    name: 'booleanInline',
+    inline: true,
+    group: 'inline',
+    atom: true,
+    selectable: true,
+    parseDOM: [{ tag: 'span.boolean-inline' }],
+    toDOM() {
+      return ['span', { class: 'boolean-inline' }, '☐']
     },
   })
 }

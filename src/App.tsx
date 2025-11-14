@@ -92,9 +92,9 @@ function defineExerciseAnswerSpec() {
     name: 'exerciseAnswer',
     content: 'booleanInline inline+',
     group: 'block',
-    parseDOM: [{ tag: 'div.exercise-answer' }],
+    parseDOM: [{ tag: 'p.exercise-answer' }],
     toDOM() {
-      return ['div', { class: 'exercise-answer' }, 0]
+      return ['p', { class: 'exercise-answer' }, 0]
     },
   })
 }

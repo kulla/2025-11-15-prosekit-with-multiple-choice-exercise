@@ -28,12 +28,14 @@ export default function Editor() {
   return (
     <main>
       <h1>Editor</h1>
-      <button type="button" onClick={handleAddMultipleChoiceExercise}>
-        Add MultipleChoiceExercise
-      </button>
-      <button type="button" onClick={handleAddParagraph}>
-        Add Paragraph
-      </button>
+      <div className="flex gap-2">
+        <button type="button" onClick={handleAddMultipleChoiceExercise}>
+          Add MultipleChoiceExercise
+        </button>
+        <button type="button" onClick={handleAddParagraph}>
+          Add Paragraph
+        </button>
+      </div>
       <ProseKit editor={editor}>
         <div
           ref={editor.mount}

@@ -90,7 +90,7 @@ function defineExerciseAnswersSpec() {
 function defineExerciseAnswerSpec() {
   return defineNodeSpec({
     name: 'exerciseAnswer',
-    content: 'booleanInline inline+',
+    content: 'booleanInline inline*',
     group: 'block',
     parseDOM: [{ tag: 'p.exercise-answer' }],
     toDOM() {

@@ -20,7 +20,7 @@ export default function Editor() {
       <ProseKit editor={editor}>
         <div
           ref={editor.mount}
-          className="outline-solid p-4"
+          className="border-2 rounded-lg p-4"
           spellCheck={false}
         ></div>
       </ProseKit>

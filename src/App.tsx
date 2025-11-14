@@ -21,11 +21,18 @@ export default function Editor() {
     editor.exec(insertNode({ type: 'multipleChoiceExercise' }))
   }, [editor])
 
+  const handleAddParagraph = useCallback(() => {
+    editor.exec(insertNode({ type: 'paragraph' }))
+  }, [editor])
+
   return (
     <main>
       <h1>Editor</h1>
       <button type="button" onClick={handleAddMultipleChoiceExercise}>
         Add MultipleChoiceExercise
+      </button>
+      <button type="button" onClick={handleAddParagraph}>
+        Add Paragraph
       </button>
       <ProseKit editor={editor}>
         <div

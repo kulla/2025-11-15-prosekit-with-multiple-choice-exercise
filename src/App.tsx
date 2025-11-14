@@ -32,11 +32,21 @@ export default function Editor() {
   const [json, setJson] = useState<unknown>(null)
 
   const handleAddMultipleChoiceExercise = useCallback(() => {
-    editor.exec(insertNode({ type: 'multipleChoiceExercise' }))
+    editor.exec(
+      insertNode({
+        type: 'multipleChoiceExercise',
+        pos: editor.state.selection.$anchor.after(1),
+      }),
+    )
   }, [editor])
 
   const handleAddParagraph = useCallback(() => {
-    editor.exec(insertNode({ type: 'paragraph' }))
+    editor.exec(
+      insertNode({
+        type: 'paragraph',
+        pos: editor.state.selection.$anchor.after(1),
+      }),
+    )
   }, [editor])
 
   useDocChange(() => setJson(editor.getDocJSON()), { editor })

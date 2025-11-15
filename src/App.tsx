@@ -140,7 +140,6 @@ function defineBooleanSpec() {
     defineNodeSpec({
       name: 'boolean',
       inline: true,
-      group: 'inline',
       parseDOM: [{ tag: 'input[type="checkbox"]' }],
       toDOM() {
         return ['input', { type: 'checkbox' }]

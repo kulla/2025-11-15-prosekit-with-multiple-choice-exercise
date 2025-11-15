@@ -20,6 +20,7 @@ export default function Editor() {
   const editor = useMemo(() => {
     const extension = union(
       defineBasicExtension(),
+      defineRootSpec(),
       defineMultipleChoiceExerciseSpec(),
       defineExerciseQuestionSpec(),
       defineExerciseAnswersSpec(),
@@ -73,6 +74,14 @@ export default function Editor() {
       <pre>{stringify(json)}</pre>
     </main>
   )
+}
+
+function defineRootSpec() {
+  return defineNodeSpec({
+    name: 'root',
+    content: '(paragraph | multipleChoiceExercise)*',
+    topNode: true,
+  })
 }
 
 function defineMultipleChoiceExerciseSpec() {
